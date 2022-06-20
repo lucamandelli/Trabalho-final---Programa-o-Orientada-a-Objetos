@@ -6,7 +6,7 @@ import javafx.scene.paint.Paint;
  * 
  * @author Bernardo Copstein and Rafael Copstein
  */
-public class Shot3 extends BasicElement {
+public class Shot3 extends Shot {
   public Shot3(int px, int py) {
     super(px, py);
   }

@@ -13,17 +13,18 @@ import java.util.LinkedList;
 public class Game {
     private static Game game = null;
     private Canhao canhao;
-    private Canhao2 canhao2;
-    private Canhao3 canhao3;
     private List<Character> activeChars;
     private boolean gameOver;
     private int pontos;
     private LocalDate ld;
+    private int pontosTroca;
+    private int tipoTroca = 1;
 
     private Game() {
         gameOver = false;
         pontos = 0;
         ld = LocalDate.now();
+        pontosTroca = 7;
     }
 
     public LocalDate getDate() {
@@ -79,15 +80,9 @@ public class Game {
         activeChars = new LinkedList<>();
 
         // Adiciona o canhao
-        if (this.getPontos() <= 0) {
-            canhao = new Canhao(400, 500);
-            activeChars.add(canhao);
-        }
-        if (this.getPontos() >= 10) {
-            canhao2 = new Canhao2(canhao.getX(), canhao.getY());
-            activeChars.add(canhao2);
-            activeChars.remove(canhao);
-        }
+
+        canhao = new Canhao(400, 500);
+        activeChars.add(canhao);
 
         // }
 
@@ -97,13 +92,13 @@ public class Game {
         // }
 
         // Adiciona invader
-        activeChars.add(new InvaderB1(100, 100));
-        activeChars.add(new InvaderB1(180, 100));
+        // activeChars.add(new InvaderBomber(100, 100));
+        // activeChars.add(new InvaderBomber(180, 100));
         activeChars.add(new InvaderB1(260, 100));
         activeChars.add(new InvaderB1(340, 100));
         activeChars.add(new InvaderB1(420, 100));
         activeChars.add(new InvaderA1(500, 150));
-        activeChars.add(new invaderC1(100, 200));
+        // activeChars.add(new invaderC1(100, 200));
         // activeChars.add(new Invader1(180, 100));
         // activeChars.add(new Invader1(260, 100));
         // activeChars.add(new Invader1(340, 100));
@@ -119,6 +114,39 @@ public class Game {
         if (gameOver) {
             return;
         }
+        if (getPontos() >= pontosTroca && tipoTroca == 1) {
+            int x = canhao.getX();
+            int y = canhao.getY();
+            canhao.deactivate();
+            canhao = new Canhao2(x, y);
+            activeChars.add(canhao);
+            pontosTroca = 23;
+            tipoTroca = 2;
+
+            for (int i = 1; i < 5; i++) {
+                activeChars.add(new InvaderBomber(100 * i, 30));
+            }
+            for (Character c : activeChars) {
+                c.start();
+            }
+
+        }
+        if (getPontos() >= pontosTroca && tipoTroca == 2) {
+            int x = canhao.getX();
+            int y = canhao.getY();
+            canhao.deactivate();
+            canhao = new Canhao3(x, y);
+            activeChars.add(canhao);
+            pontosTroca = 100000000;
+            tipoTroca = 50000000;
+            for (int i = 1; i < 5; i++) {
+                activeChars.add(new InvaderA1(100 * i, 30));
+            }
+            for (Character c : activeChars) {
+                c.start();
+            }
+
+        }
 
         for (int i = 0; i < activeChars.size(); i++) {
             Character este = activeChars.get(i);
@@ -133,6 +161,8 @@ public class Game {
     }
 
     public void OnInput(KeyCode keyCode, boolean isPressed) {
+        // canhao.OnInput(keyCode, isPressed);
+        // canhao2.OnInput(keyCode, isPressed);
         canhao.OnInput(keyCode, isPressed);
     }
 

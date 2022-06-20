@@ -2,18 +2,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-/**
- * Represents the game Gun
- * 
- * @author Bernardo Copstein, Rafael Copstein
- */
-public class Canhao2 extends BasicElement implements KeyboardCtrl {
+public class Canhao2 extends Canhao {
   private int RELOAD_TIME = 250000000; // Time is in nanoseconds
   private int shot_timer = 0;
   private Image image;
 
   public Canhao2(int px, int py) {
     super(px, py);
+
     try {
       // Carrega a imagem ajustando a altura para 40 pixels
       // mantendo a proporção em ambas dimensões
@@ -24,13 +20,11 @@ public class Canhao2 extends BasicElement implements KeyboardCtrl {
     }
   }
 
-  @Override
   public void start() {
     setLimH(0, Params.WINDOW_WIDTH);
     setLimV(0, Params.WINDOW_HEIGHT);
   }
 
-  @Override
   public void Update(long deltaTime) {
     if (jaColidiu()) {
       Game.getInstance().setGameOver();

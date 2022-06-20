@@ -2,12 +2,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-/**
- * Represents the game Gun
- * 
- * @author Bernardo Copstein, Rafael Copstein
- */
-public class Canhao3 extends BasicElement implements KeyboardCtrl {
+public class Canhao3 extends Canhao {
   private int RELOAD_TIME = 100000000; // Time is in nanoseconds
   private int shot_timer = 0;
   private Image image;
