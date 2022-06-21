@@ -1,5 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Paint;
+import javafx.scene.image.Image;
 
 /**
  * Represents a shot that crosses the screen from up to bottom and then dismiss
@@ -7,8 +7,18 @@ import javafx.scene.paint.Paint;
  * @author Luca Mandelli
  */
 public class ShotInvader extends BasicElement {
+  private Image image;
+
   public ShotInvader(int px, int py) {
     super(px, py);
+    try {
+      // Carrega a imagem ajustando a altura para 40 pixels
+      // mantendo a proporção em ambas dimensões
+      image = new Image("shotInvader.png", 0, 30, true, true);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      System.exit(1);
+    }
   }
 
   @Override
@@ -60,7 +70,6 @@ public class ShotInvader extends BasicElement {
   }
 
   public void Draw(GraphicsContext graphicsContext) {
-    graphicsContext.setFill(Paint.valueOf("#FF0000"));
-    graphicsContext.fillOval(getX(), getY(), 4, 16);
+    graphicsContext.drawImage(image, getX(), getY());
   }
 }

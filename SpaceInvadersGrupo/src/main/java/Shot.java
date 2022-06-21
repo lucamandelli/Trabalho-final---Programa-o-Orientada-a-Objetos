@@ -1,5 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Paint;
+import javafx.scene.image.Image;
 
 /**
  * Represents a shot that crosses the screen from bottom to up and then dismiss
@@ -7,8 +7,18 @@ import javafx.scene.paint.Paint;
  * @author Bernardo Copstein and Rafael Copstein
  */
 public class Shot extends BasicElement {
+    private Image image;
+
     public Shot(int px, int py) {
         super(px, py);
+        try {
+            // Carrega a imagem ajustando a altura para 40 pixels
+            // mantendo a proporção em ambas dimensões
+            image = new Image("shot1.png", 0, 30, true, true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
     @Override
@@ -52,7 +62,6 @@ public class Shot extends BasicElement {
     }
 
     public void Draw(GraphicsContext graphicsContext) {
-        graphicsContext.setFill(Paint.valueOf("#00FF00"));
-        graphicsContext.fillOval(getX(), getY(), 4, 8);
+        graphicsContext.drawImage(image, getX(), getY());
     }
 }
