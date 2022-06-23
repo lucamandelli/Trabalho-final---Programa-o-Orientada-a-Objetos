@@ -20,6 +20,7 @@ public class InvaderBomber extends BasicElement {
       // mantendo a proporção em ambas dimensões
       image1 = new Image("invaderBomber.png", 0, 60, true, true);
       image2 = new Image("invaderBomber2.png", 0, 60, true, true);
+      this.setLargAlt((int) image1.getWidth(), (int) image1.getHeight());
     } catch (Exception e) {
       System.out.println(e.getMessage());
       System.exit(1);

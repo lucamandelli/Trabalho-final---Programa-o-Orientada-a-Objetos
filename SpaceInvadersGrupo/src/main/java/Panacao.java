@@ -11,14 +11,15 @@ public class Panacao extends BasicElement {
   private Image image1;
   private int RELOAD_TIME = 500000000; // Time is in nanoseconds
   private int shot_timer = 0;
-  private int vida = 5;
+  private int vida = 50;
 
   public Panacao(int px, int py) {
     super(px, py);
     try {
       // Carrega a imagem ajustando a altura para 30 pixels
       // mantendo a proporção em ambas dimensões
-      image1 = new Image("Panacao.png", 0, 300, true, true);
+      image1 = new Image("Panacao.png", 0, 200, true, true);
+      this.setLargAlt((int) image1.getWidth(), (int) image1.getHeight());
 
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -36,11 +37,11 @@ public class Panacao extends BasicElement {
   public void Update(long deltaTime) {
     if (jaColidiu()) {
       if (this.vida == 1) {
-        Game.getInstance().incPontosBomber();
+        Game.getInstance().incPontosPanacao();
         deactivate();
       }
-      this.vida--;
-      this.colidiu = false;
+      vida--;
+      colidiu = false;
     }
 
     setPosX(getX() + getDirH() * getSpeed());
@@ -49,15 +50,9 @@ public class Panacao extends BasicElement {
       shot_timer -= deltaTime;
     }
     // Se chegou no lado direito da tela ...
-    if (getX() >= getLMaxH() - 100 || getX() < getLMinH() + 100) {
+    if (getX() >= getLMaxH() - 100 || getX() < getLMinH()) {
       // Inverte a direção
       setDirH(getDirH() * -1);
-      // Sorteia o passo de avanço [1,5]
-      // setSpeed(Params.getInstance().nextInt(5) + 5);
-      // Se ainda não chegou perto do chão, desce
-      /* if (getY() < 450){ */
-      // setPosY(getY() + 30);
-      // }
 
     }
 
@@ -65,7 +60,7 @@ public class Panacao extends BasicElement {
 
   public void shot() {
     if (shot_timer <= 0) {
-      Game.getInstance().addChar(new ShotPanacao(getX() + 150, getY() + 250));
+      Game.getInstance().addChar(new ShotPanacao(getX() + 150, getY() + 150));
       shot_timer = RELOAD_TIME;
       shot();
     }

@@ -1,5 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
+import javafx.scene.paint.Paint;
 
 /**
  * Represents a shot that crosses the screen from up to bottom and then dismiss
@@ -7,18 +7,9 @@ import javafx.scene.image.Image;
  * @author Luca Mandelli
  */
 public class ShotPanacao extends BasicElement {
-  private Image image;
 
   public ShotPanacao(int px, int py) {
     super(px, py);
-    try {
-      // Carrega a imagem ajustando a altura para 40 pixels
-      // mantendo a proporção em ambas dimensões
-      image = new Image("shotInvader.png", 0, 60, true, true);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-      System.exit(1);
-    }
   }
 
   @Override
@@ -39,6 +30,10 @@ public class ShotPanacao extends BasicElement {
     } else if (outro instanceof invaderC1) {
       return;
     } else if (outro instanceof ShotPanacao) {
+      return;
+    } else if (outro instanceof Panacao) {
+      return;
+    } else if (outro instanceof Shot3) {
       return;
     } else {
       super.testaColisao(outro);
@@ -61,15 +56,16 @@ public class ShotPanacao extends BasicElement {
 
   @Override
   public int getAltura() {
-    return 8;
+    return this.altura;
   }
 
   @Override
   public int getLargura() {
-    return 4;
+    return this.largura;
   }
 
   public void Draw(GraphicsContext graphicsContext) {
-    graphicsContext.drawImage(image, getX(), getY());
+    graphicsContext.setFill(Paint.valueOf("#00FF00"));
+    graphicsContext.fillOval(getX(), getY(), 20, 40);
   }
 }

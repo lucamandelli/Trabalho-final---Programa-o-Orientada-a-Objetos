@@ -13,6 +13,7 @@ public class Canhao3 extends Canhao {
       // Carrega a imagem ajustando a altura para 40 pixels
       // mantendo a proporção em ambas dimensões
       image = new Image("canhao3.png", 0, 40, true, true);
+      this.setLargAlt((int) image.getWidth(), (int) image.getHeight());
     } catch (Exception e) {
       System.out.println(e.getMessage());
       System.exit(1);
@@ -69,43 +70,53 @@ public class Canhao3 extends Canhao {
         shot_timer = RELOAD_TIME;
       }
     }
-    if (keyCode == KeyCode.UP) {
-      if (getY() >= Params.WINDOW_HEIGHT - 200) {
-        int dv = isPressed ? -1 : 0;
-        setDirV(dv);
-      } else {
-        int dv = isPressed ? 0 : 0;
-        setDirV(dv);
-      }
+    // if (keyCode == KeyCode.UP) {
+    // if (getY() >= Params.WINDOW_HEIGHT - 200) {
+    // int dv = isPressed ? -1 : 0;
+    // setDirV(dv);
+    // } else {
+    // int dv = isPressed ? 0 : 0;
+    // setDirV(dv);
+    // }
 
+    // }
+    // if (keyCode == KeyCode.DOWN) {
+    // if (getY() <= Params.WINDOW_HEIGHT - 50) {
+    // int dv = isPressed ? 1 : 0;
+    // setDirV(dv);
+    // } else if (getY() <= Params.WINDOW_HEIGHT - 40) {
+    // int dv = isPressed ? 1 : 0;
+    // setDirV(dv);
+    // } else if (getY() <= Params.WINDOW_HEIGHT - 30) {
+    // int dv = isPressed ? 1 : 0;
+    // setDirV(dv);
+    // } else {
+    // int dv = isPressed ? 0 : 0;
+    // setDirV(dv);
+    // }
+
+    // }
+
+  }
+
+  public void testaColisao(Character outro) {
+    if (outro instanceof Canhao3) {
+      return;
+    } else if (outro instanceof Shot3) {
+      return;
+    } else {
+      super.testaColisao(outro);
     }
-    if (keyCode == KeyCode.DOWN) {
-      if (getY() <= Params.WINDOW_HEIGHT - 50) {
-        int dv = isPressed ? 1 : 0;
-        setDirV(dv);
-      } else if (getY() <= Params.WINDOW_HEIGHT - 40) {
-        int dv = isPressed ? 1 : 0;
-        setDirV(dv);
-      } else if (getY() <= Params.WINDOW_HEIGHT - 30) {
-        int dv = isPressed ? 1 : 0;
-        setDirV(dv);
-      } else {
-        int dv = isPressed ? 0 : 0;
-        setDirV(dv);
-      }
-
-    }
-
   }
 
   @Override
   public int getAltura() {
-    return 80;
+    return this.altura;
   }
 
   @Override
   public int getLargura() {
-    return 32;
+    return this.largura;
   }
 
   public void Draw(GraphicsContext graphicsContext) {

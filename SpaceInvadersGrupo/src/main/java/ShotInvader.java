@@ -61,12 +61,12 @@ public class ShotInvader extends BasicElement {
 
   @Override
   public int getAltura() {
-    return 8;
+    return this.altura;
   }
 
   @Override
   public int getLargura() {
-    return 4;
+    return this.largura;
   }
 
   public void Draw(GraphicsContext graphicsContext) {

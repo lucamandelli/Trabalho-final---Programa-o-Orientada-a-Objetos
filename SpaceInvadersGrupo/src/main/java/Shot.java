@@ -32,6 +32,10 @@ public class Shot extends BasicElement {
         // Não verifica colisão de um tiro com outro tiro
         if (outro instanceof Shot) {
             return;
+        } else if (outro instanceof Canhao) {
+            return;
+        } else if (outro instanceof ShotPanacao) {
+            return;
         } else {
             super.testaColisao(outro);
         }
@@ -53,12 +57,12 @@ public class Shot extends BasicElement {
 
     @Override
     public int getAltura() {
-        return 8;
+        return this.altura;
     }
 
     @Override
     public int getLargura() {
-        return 4;
+        return this.largura;
     }
 
     public void Draw(GraphicsContext graphicsContext) {

@@ -32,6 +32,10 @@ public class Shot3 extends Shot {
     // Não verifica colisão de um tiro com outro tiro
     if (outro instanceof Shot3) {
       return;
+    } else if (outro instanceof Canhao3) {
+      return;
+    } else if (outro instanceof ShotPanacao) {
+      return;
     } else {
       super.testaColisao(outro);
     }
@@ -53,12 +57,12 @@ public class Shot3 extends Shot {
 
   @Override
   public int getAltura() {
-    return 8;
+    return this.altura;
   }
 
   @Override
   public int getLargura() {
-    return 4;
+    return this.largura;
   }
 
   public void Draw(GraphicsContext graphicsContext) {

@@ -67,6 +67,10 @@ public class Game {
         pontos += 4;
     }
 
+    public void incPontosPanacao() {
+        pontos += 50;
+    }
+
     public static Game getInstance() {
         if (game == null) {
             game = new Game();
@@ -125,11 +129,13 @@ public class Game {
         if (getPontos() >= pontosTroca && tipoTroca == 1) {
             int x = canhao.getX();
             int y = canhao.getY();
+            int vida = Canhao.getVida();
             canhao.deactivate();
             canhao = new Canhao2(x, y);
             activeChars.add(canhao);
             pontosTroca = 23;
             tipoTroca = 2;
+            canhao.setVida(vida);
 
             for (int i = 1; i < 5; i++) {
                 activeChars.add(new InvaderBomber(100 * i, 30));
@@ -142,11 +148,14 @@ public class Game {
         if (getPontos() >= pontosTroca && tipoTroca == 2) {
             int x = canhao.getX();
             int y = canhao.getY();
+            int vida = Canhao.getVida();
             canhao.deactivate();
             canhao = new Canhao3(x, y);
             activeChars.add(canhao);
             pontosTroca = 100000000;
             tipoTroca = 3;
+
+            canhao.setVida(vida);
 
             for (int i = 1; i < 5; i++) {
                 activeChars.add(new InvaderA1(100 * i, 30));

@@ -20,6 +20,7 @@ public class Canhao extends BasicElement implements KeyboardCtrl {
             // Carrega a imagem ajustando a altura para 40 pixels
             // mantendo a proporção em ambas dimensões
             image = new Image("canon.png", 0, 40, true, true);
+            this.setLargAlt((int) image.getWidth(), (int) image.getHeight());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(1);
@@ -76,27 +77,37 @@ public class Canhao extends BasicElement implements KeyboardCtrl {
                 shot_timer = RELOAD_TIME;
             }
         }
-        if (keyCode == KeyCode.UP) {
-            if (getY() >= Params.WINDOW_HEIGHT - 200) {
-                int dv = isPressed ? -1 : 0;
-                setDirV(dv);
-            } else {
-                int dv = isPressed ? 0 : 0;
-                setDirV(dv);
-            }
+        // if (keyCode == KeyCode.UP) {
+        // if (getY() >= Params.WINDOW_HEIGHT - 200) {
+        // int dv = isPressed ? -1 : 0;
+        // setDirV(dv);
+        // } else {
+        // int dv = isPressed ? 0 : 0;
+        // setDirV(dv);
+        // }
 
+        // }
+        // if (keyCode == KeyCode.DOWN) {
+        // if (getY() <= Params.WINDOW_HEIGHT - 50) {
+        // int dv = isPressed ? 1 : 0;
+        // setDirV(dv);
+        // } else {
+        // int dv = isPressed ? 0 : 0;
+        // setDirV(dv);
+        // }
+
+        // }
+
+    }
+
+    public void testaColisao(Character outro) {
+        if (outro instanceof Canhao) {
+            return;
+        } else if (outro instanceof Shot) {
+            return;
+        } else {
+            super.testaColisao(outro);
         }
-        if (keyCode == KeyCode.DOWN) {
-            if (getY() <= Params.WINDOW_HEIGHT - 50) {
-                int dv = isPressed ? 1 : 0;
-                setDirV(dv);
-            } else {
-                int dv = isPressed ? 0 : 0;
-                setDirV(dv);
-            }
-
-        }
-
     }
 
     public static int getVida() {
@@ -109,12 +120,12 @@ public class Canhao extends BasicElement implements KeyboardCtrl {
 
     @Override
     public int getAltura() {
-        return 80;
+        return this.altura;
     }
 
     @Override
     public int getLargura() {
-        return 32;
+        return this.largura;
     }
 
     public void Draw(GraphicsContext graphicsContext) {

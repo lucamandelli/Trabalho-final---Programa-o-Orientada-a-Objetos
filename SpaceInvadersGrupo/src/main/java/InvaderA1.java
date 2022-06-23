@@ -10,6 +10,7 @@ public class InvaderA1 extends BasicElement {
       // Carrega a imagem ajustando a altura para 30 pixels
       // mantendo a proporção em ambas dimensões
       image = new Image("invaderA1.png", 0, 20, true, true);
+      this.setLargAlt((int) image.getWidth(), (int) image.getHeight());
     } catch (Exception e) {
       System.out.println(e.getMessage());
       System.exit(1);
