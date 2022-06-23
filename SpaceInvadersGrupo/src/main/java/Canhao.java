@@ -11,9 +11,11 @@ public class Canhao extends BasicElement implements KeyboardCtrl {
     private int RELOAD_TIME = 500000000; // Time is in nanoseconds
     private int shot_timer = 0;
     private Image image;
+    private static int vida;
 
     public Canhao(int px, int py) {
         super(px, py);
+        vida = 3;
         try {
             // Carrega a imagem ajustando a altura para 40 pixels
             // mantendo a proporção em ambas dimensões
@@ -33,7 +35,11 @@ public class Canhao extends BasicElement implements KeyboardCtrl {
     @Override
     public void Update(long deltaTime) {
         if (jaColidiu()) {
-            Game.getInstance().setGameOver();
+            if (getVida() == 1) {
+                Game.getInstance().setGameOver();
+            }
+            setVida(getVida() - 1);
+            colidiu = false;
         }
         setPosX(getX() + getDirH() * getSpeed());
         setPosY(getY() + getDirV() * getSpeed());
@@ -91,6 +97,14 @@ public class Canhao extends BasicElement implements KeyboardCtrl {
 
         }
 
+    }
+
+    public static int getVida() {
+        return (vida);
+    }
+
+    public void setVida(int x) {
+        vida = x;
     }
 
     @Override

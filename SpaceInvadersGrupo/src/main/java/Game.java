@@ -39,6 +39,14 @@ public class Game {
         return gameOver;
     }
 
+    public int getPontosTroca() {
+        return pontosTroca;
+    }
+
+    public int getTipoTroca() {
+        return tipoTroca;
+    }
+
     public int getPontos() {
         return pontos;
     }
@@ -138,14 +146,23 @@ public class Game {
             canhao = new Canhao3(x, y);
             activeChars.add(canhao);
             pontosTroca = 100000000;
-            tipoTroca = 50000000;
+            tipoTroca = 3;
+
             for (int i = 1; i < 5; i++) {
                 activeChars.add(new InvaderA1(100 * i, 30));
             }
+
             for (Character c : activeChars) {
                 c.start();
             }
 
+        }
+        if (getPontos() >= 27 && tipoTroca == 3) {
+            activeChars.add(new Panacao(400, 0));
+            for (Character c : activeChars) {
+                c.start();
+            }
+            tipoTroca = 3000;
         }
 
         for (int i = 0; i < activeChars.size(); i++) {

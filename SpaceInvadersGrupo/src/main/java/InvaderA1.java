@@ -29,6 +29,7 @@ public class InvaderA1 extends BasicElement {
       deactivate();
     } else {
       setPosX(getX() + getDirH() * getSpeed());
+
       // Se chegou no lado direito da tela ...
       if (getX() >= getLMaxH() - 100 || getX() < getLMinH() + 100) {
         // Inverte a direção

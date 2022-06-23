@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -48,6 +50,8 @@ public class Main extends Application {
 
         // Register Game Loop
         final GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFont(Font.font("Verdana", 12));
+        gc.setFill(Color.WHITE);
 
         new AnimationTimer() {
             long lastNanoTime = System.nanoTime();
@@ -67,11 +71,13 @@ public class Main extends Application {
                     System.out.println(e.getMessage());
                     System.exit(1);
                 }
-
+                String vidas = String.valueOf(Canhao.getVida());
                 gc.fillText("Pontos: " + Game.getInstance().getPontos(), 10, 10);
                 gc.fillText("data: " + Game.getInstance().getDate().getDayOfMonth() + "/"
                         + Game.getInstance().getDate().getMonth() + "/" + Game.getInstance().getDate().getYear(), 10,
                         30);
+                gc.fillText("Vidas: " + vidas, 10, 50);
+
                 Game.getInstance().Draw(gc);
                 if (Game.getInstance().isGameOver()) {
                     stop();

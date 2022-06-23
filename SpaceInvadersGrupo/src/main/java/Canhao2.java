@@ -27,7 +27,11 @@ public class Canhao2 extends Canhao {
 
   public void Update(long deltaTime) {
     if (jaColidiu()) {
-      Game.getInstance().setGameOver();
+      if (getVida() == 1) {
+        Game.getInstance().setGameOver();
+      }
+      setVida(getVida() - 1);
+      colidiu = false;
     }
     setPosX(getX() + getDirH() * getSpeed());
     setPosY(getY() + getDirV() * getSpeed());
