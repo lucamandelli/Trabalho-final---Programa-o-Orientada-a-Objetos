@@ -4,10 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -37,7 +35,7 @@ public class Main extends Application {
         root.getChildren().add(canvas);
 
         // Setup Game object
-        Game.getInstance().Start();
+        Game.getInstance().carregaLevelAtual();
 
         // Register User Input Handler
         scene.setOnKeyPressed((KeyEvent event) -> {
@@ -90,6 +88,18 @@ public class Main extends Application {
 
         // Show window
         stage.show();
+    }
+
+    public void carregaFase1() {
+        Game.getInstance().fase1();
+    }
+
+    public void carregaFase2() {
+        Game.getInstance().fase2();
+    }
+
+    public void carregaFase3() {
+        Game.getInstance().fase3();
     }
 
     public static void main(String args[]) {

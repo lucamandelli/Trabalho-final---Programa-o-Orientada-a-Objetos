@@ -27,7 +27,7 @@ public class ShotPanacao extends BasicElement {
       return;
     } else if (outro instanceof InvaderBomber) {
       return;
-    } else if (outro instanceof invaderC1) {
+    } else if (outro instanceof InvaderC1) {
       return;
     } else if (outro instanceof ShotPanacao) {
       return;

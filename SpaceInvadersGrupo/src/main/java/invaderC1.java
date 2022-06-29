@@ -1,10 +1,10 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class invaderC1 extends BasicElement {
+public class InvaderC1 extends BasicElement {
   private Image image;
 
-  public invaderC1(int px, int py) {
+  public InvaderC1(int px, int py) {
     super(px, py);
     try {
       // Carrega a imagem ajustando a altura para 30 pixels
@@ -19,8 +19,8 @@ public class invaderC1 extends BasicElement {
 
   @Override
   public void start() {
-    setDirH(1);
-    setSpeed(2);
+    setDirH(-1);
+    setSpeed(6);
   }
 
   @Override
@@ -58,7 +58,7 @@ public class invaderC1 extends BasicElement {
       return;
     } else if (outro instanceof InvaderBomber) {
       return;
-    } else if (outro instanceof invaderC1) {
+    } else if (outro instanceof InvaderC1) {
       return;
     } else if (outro instanceof ShotInvader) {
       return;

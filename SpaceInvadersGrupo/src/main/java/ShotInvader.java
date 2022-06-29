@@ -36,7 +36,7 @@ public class ShotInvader extends BasicElement {
       return;
     } else if (outro instanceof InvaderBomber) {
       return;
-    } else if (outro instanceof invaderC1) {
+    } else if (outro instanceof InvaderC1) {
       return;
     } else if (outro instanceof ShotInvader) {
       return;

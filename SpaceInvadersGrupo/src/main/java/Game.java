@@ -2,6 +2,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
@@ -17,14 +19,13 @@ public class Game {
     private boolean gameOver;
     private int pontos;
     private LocalDate ld;
-    private int pontosTroca;
-    private int tipoTroca = 1;
+    private Levels levelAtual;
 
     private Game() {
         gameOver = false;
         pontos = 0;
         ld = LocalDate.now();
-        pontosTroca = 7;
+
     }
 
     public LocalDate getDate() {
@@ -39,16 +40,12 @@ public class Game {
         return gameOver;
     }
 
-    public int getPontosTroca() {
-        return pontosTroca;
-    }
-
-    public int getTipoTroca() {
-        return tipoTroca;
-    }
-
     public int getPontos() {
         return pontos;
+    }
+
+    public void perdePontos() {
+        pontos -= 10;
     }
 
     public void incPontosA1() {
@@ -88,37 +85,24 @@ public class Game {
     }
 
     public void Start() {
-        // Repositório de personagens
-        activeChars = new LinkedList<>();
+        carregaLevelAtual();
 
-        // Adiciona o canhao
+    }
 
-        canhao = new Canhao(400, 500);
-        activeChars.add(canhao);
+    public void carregaLevelAtual() {
+        fase1();
+        levelAtual = Levels.Level1;
+    }
 
-        // }
-
-        // Adiciona bolas
-        // for (int i = 0; i < 4; i++) {
-        // activeChars.add(new InvaderBomber(100 + (i * 180), 30));
-        // }
-
-        // Adiciona invader
-        // activeChars.add(new InvaderBomber(100, 100));
-        // activeChars.add(new InvaderBomber(180, 100));
-        activeChars.add(new InvaderB1(260, 100));
-        activeChars.add(new InvaderB1(340, 100));
-        activeChars.add(new InvaderB1(420, 100));
-        activeChars.add(new InvaderA1(500, 150));
-        // activeChars.add(new invaderC1(100, 200));
-        // activeChars.add(new Invader1(180, 100));
-        // activeChars.add(new Invader1(260, 100));
-        // activeChars.add(new Invader1(340, 100));
-        // activeChars.add(new Invader1(420, 100));
-        // activeChars.add(new Invader1(500, 100));
-
-        for (Character c : activeChars) {
-            c.start();
+    public void highScore() {
+        try {
+            FileWriter writer = new FileWriter("HighScore.txt");
+            String s = String.valueOf(getPontos());
+            writer.write(s);
+            writer.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
@@ -126,53 +110,8 @@ public class Game {
         if (gameOver) {
             return;
         }
-        if (getPontos() >= pontosTroca && tipoTroca == 1) {
-            int x = canhao.getX();
-            int y = canhao.getY();
-            int vida = Canhao.getVida();
-            canhao.deactivate();
-            canhao = new Canhao2(x, y);
-            activeChars.add(canhao);
-            pontosTroca = 23;
-            tipoTroca = 2;
-            canhao.setVida(vida);
 
-            for (int i = 1; i < 5; i++) {
-                activeChars.add(new InvaderBomber(100 * i, 30));
-            }
-            for (Character c : activeChars) {
-                c.start();
-            }
-
-        }
-        if (getPontos() >= pontosTroca && tipoTroca == 2) {
-            int x = canhao.getX();
-            int y = canhao.getY();
-            int vida = Canhao.getVida();
-            canhao.deactivate();
-            canhao = new Canhao3(x, y);
-            activeChars.add(canhao);
-            pontosTroca = 100000000;
-            tipoTroca = 3;
-
-            canhao.setVida(vida);
-
-            for (int i = 1; i < 5; i++) {
-                activeChars.add(new InvaderA1(100 * i, 30));
-            }
-
-            for (Character c : activeChars) {
-                c.start();
-            }
-
-        }
-        if (getPontos() >= 27 && tipoTroca == 3) {
-            activeChars.add(new Panacao(400, 0));
-            for (Character c : activeChars) {
-                c.start();
-            }
-            tipoTroca = 3000;
-        }
+        int personagens = 0;
 
         for (int i = 0; i < activeChars.size(); i++) {
             Character este = activeChars.get(i);
@@ -183,6 +122,161 @@ public class Game {
                     este.testaColisao(outro);
                 }
             }
+
+            if (!(este instanceof Shot) && !(este instanceof ShotPanacao)) {
+                personagens++;
+            }
+        }
+
+        if (personagens == 1) {
+            switch (levelAtual) {
+                case Level1:
+                    fase2();
+                    levelAtual = Levels.Level2;
+                    break;
+                case Level2:
+                    fase3();
+                    levelAtual = Levels.Level3;
+                    break;
+                case Level3:
+                    faseBoss();
+                    levelAtual = Levels.LevelPanacao;
+                    break;
+                case LevelPanacao:
+                    levelAtual = Levels.GameOver;
+
+                    break;
+                case GameOver:
+                    highScore();
+                    setGameOver();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    public void fase1() {
+        activeChars = new LinkedList<>();
+
+        canhao = new Canhao(350, 500);
+        activeChars.add(canhao);
+
+        activeChars.add(new InvaderB1(200, 120));
+        activeChars.add(new InvaderB1(300, 120));
+        activeChars.add(new InvaderB1(400, 120));
+        activeChars.add(new InvaderB1(500, 120));
+        activeChars.add(new InvaderB1(600, 120));
+        activeChars.add(new InvaderB1(200, 180));
+        activeChars.add(new InvaderB1(300, 180));
+        activeChars.add(new InvaderB1(400, 180));
+        activeChars.add(new InvaderB1(500, 180));
+        activeChars.add(new InvaderB1(600, 180));
+
+        activeChars.add(new InvaderC1(200, 220));
+        activeChars.add(new InvaderC1(300, 220));
+        activeChars.add(new InvaderC1(400, 220));
+        activeChars.add(new InvaderC1(500, 220));
+        activeChars.add(new InvaderC1(600, 220));
+
+        activeChars.add(new InvaderA1(200, 260));
+        activeChars.add(new InvaderA1(300, 260));
+        activeChars.add(new InvaderA1(400, 260));
+        activeChars.add(new InvaderA1(500, 260));
+        activeChars.add(new InvaderA1(600, 260));
+
+        for (Character c : activeChars) {
+            c.start();
+        }
+
+    }
+
+    public void fase2() {
+        activeChars = new LinkedList<>();
+
+        canhao = new Canhao2(canhao.getX(), canhao.getY());
+
+        activeChars.add(canhao);
+
+        activeChars.add(new InvaderBomber(200, 30));
+        activeChars.add(new InvaderBomber(300, 30));
+        activeChars.add(new InvaderBomber(400, 30));
+        activeChars.add(new InvaderBomber(500, 30));
+        activeChars.add(new InvaderBomber(600, 30));
+
+        activeChars.add(new InvaderB1(200, 90));
+        activeChars.add(new InvaderB1(300, 90));
+        activeChars.add(new InvaderB1(400, 90));
+        activeChars.add(new InvaderB1(500, 90));
+        activeChars.add(new InvaderB1(600, 90));
+
+        activeChars.add(new InvaderC1(200, 120));
+        activeChars.add(new InvaderC1(300, 120));
+        activeChars.add(new InvaderC1(400, 120));
+        activeChars.add(new InvaderC1(500, 120));
+        activeChars.add(new InvaderC1(600, 120));
+
+        activeChars.add(new InvaderA1(200, 160));
+        activeChars.add(new InvaderA1(300, 160));
+        activeChars.add(new InvaderA1(400, 160));
+        activeChars.add(new InvaderA1(500, 160));
+        activeChars.add(new InvaderA1(600, 160));
+
+        for (Character c : activeChars) {
+            c.start();
+        }
+
+    }
+
+    public void fase3() {
+        activeChars = new LinkedList<>();
+
+        canhao = new Canhao3(canhao.getX(), canhao.getY());
+
+        activeChars.add(canhao);
+
+        activeChars.add(new InvaderBomber(200, 30));
+        activeChars.add(new InvaderBomber(300, 30));
+        activeChars.add(new InvaderBomber(400, 30));
+        activeChars.add(new InvaderBomber(500, 30));
+        activeChars.add(new InvaderBomber(600, 30));
+
+        activeChars.add(new InvaderC1(200, 120));
+        activeChars.add(new InvaderC1(300, 120));
+        activeChars.add(new InvaderC1(400, 120));
+        activeChars.add(new InvaderC1(500, 120));
+        activeChars.add(new InvaderC1(600, 120));
+
+        activeChars.add(new InvaderA1(200, 160));
+        activeChars.add(new InvaderA1(300, 160));
+        activeChars.add(new InvaderA1(400, 160));
+        activeChars.add(new InvaderA1(500, 160));
+        activeChars.add(new InvaderA1(600, 160));
+
+        activeChars.add(new InvaderA1(200, 200));
+        activeChars.add(new InvaderA1(300, 200));
+        activeChars.add(new InvaderA1(400, 200));
+        activeChars.add(new InvaderA1(500, 200));
+        activeChars.add(new InvaderA1(600, 200));
+
+        for (Character c : activeChars) {
+            c.start();
+        }
+    }
+
+    public void faseBoss() {
+        activeChars = new LinkedList<>();
+
+        canhao = new Canhao3(canhao.getX(), canhao.getY());
+
+        activeChars.add(canhao);
+
+        activeChars.add(new Panacao(400, 0));
+
+        for (Character c : activeChars) {
+            c.start();
         }
     }
 
@@ -190,6 +284,25 @@ public class Game {
         // canhao.OnInput(keyCode, isPressed);
         // canhao2.OnInput(keyCode, isPressed);
         canhao.OnInput(keyCode, isPressed);
+        if (keyCode == KeyCode.F1) {
+            fase1();
+            levelAtual = Levels.Level1;
+        }
+        if (keyCode == KeyCode.F2) {
+            fase2();
+            levelAtual = Levels.Level2;
+        }
+        if (keyCode == KeyCode.F3) {
+            fase3();
+            levelAtual = Levels.Level3;
+        }
+        if (keyCode == KeyCode.F4) {
+            faseBoss();
+            levelAtual = Levels.LevelPanacao;
+        }
+        if (keyCode == KeyCode.F5) {
+            levelAtual = Levels.GameOver;
+        }
     }
 
     public void Draw(GraphicsContext graphicsContext) {

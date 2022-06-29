@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 
 public class InvaderBomber extends BasicElement {
   private Image image1, image2;
-  private int RELOAD_TIME = 2000000000; // Time is in nanoseconds
+  private int RELOAD_TIME = 1000000000; // Time is in nanoseconds
   private int shot_timer = 0;
   private int vida = 3;
 
@@ -88,7 +88,7 @@ public class InvaderBomber extends BasicElement {
       return;
     } else if (outro instanceof InvaderBomber) {
       return;
-    } else if (outro instanceof invaderC1) {
+    } else if (outro instanceof InvaderC1) {
       return;
     } else if (outro instanceof ShotInvader) {
       return;

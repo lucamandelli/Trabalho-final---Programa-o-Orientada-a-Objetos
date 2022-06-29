@@ -20,7 +20,7 @@ public class InvaderA1 extends BasicElement {
   @Override
   public void start() {
     setDirH(1);
-    setSpeed(2);
+    setSpeed(8);
   }
 
   @Override
@@ -37,11 +37,11 @@ public class InvaderA1 extends BasicElement {
         setDirH(getDirH() * -1);
 
         setSpeed(getSpeed() + 2);
-        // Se ainda não chegou perto do chão, desce
-        /* if (getY() < 450){ */
-        setPosY(getY() + 60);
-        // }
+
+        setPosY(getY() + 30);
+
       }
+
     }
   }
 
@@ -57,7 +57,7 @@ public class InvaderA1 extends BasicElement {
       return;
     } else if (outro instanceof InvaderBomber) {
       return;
-    } else if (outro instanceof invaderC1) {
+    } else if (outro instanceof InvaderC1) {
       return;
     } else if (outro instanceof ShotInvader) {
       return;

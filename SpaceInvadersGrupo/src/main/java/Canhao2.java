@@ -69,32 +69,6 @@ public class Canhao2 extends Canhao {
         shot_timer = RELOAD_TIME;
       }
     }
-    // if (keyCode == KeyCode.UP) {
-    // if (getY() >= Params.WINDOW_HEIGHT - 200) {
-    // int dv = isPressed ? -1 : 0;
-    // setDirV(dv);
-    // } else {
-    // int dv = isPressed ? 0 : 0;
-    // setDirV(dv);
-    // }
-
-    // }
-    // if (keyCode == KeyCode.DOWN) {
-    // if (getY() <= Params.WINDOW_HEIGHT - 50) {
-    // int dv = isPressed ? 1 : 0;
-    // setDirV(dv);
-    // } else if (getY() <= Params.WINDOW_HEIGHT - 40) {
-    // int dv = isPressed ? 1 : 0;
-    // setDirV(dv);
-    // } else if (getY() <= Params.WINDOW_HEIGHT - 30) {
-    // int dv = isPressed ? 1 : 0;
-    // setDirV(dv);
-    // } else {
-    // int dv = isPressed ? 0 : 0;
-    // setDirV(dv);
-    // }
-
-    // }
 
   }
 
