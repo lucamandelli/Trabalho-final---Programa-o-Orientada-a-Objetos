@@ -2,15 +2,22 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 
 import java.util.List;
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 /**
- * Handles the game lifecycle and behavior
  * 
- * @author Bernardo Copstein and Rafael Copstein
+ * @author Davi Barcellos de Lucca - 21200149
+ * @author Luca Partichelli Mandelli - 20103327
+ * @author Isabela Kuser Araujo - 21280763
+ * 
+ *         Link Projeto GitHub -
+ *         https://github.com/lucamandelli/Trabalho-POO.git
  */
 public class Game {
     private static Game game = null;
@@ -34,6 +41,7 @@ public class Game {
 
     public void setGameOver() {
         gameOver = true;
+        highScore();
     }
 
     public boolean isGameOver() {
@@ -96,10 +104,15 @@ public class Game {
 
     public void highScore() {
         try {
-            FileWriter writer = new FileWriter("HighScore.txt");
+            PrintWriter writer = new PrintWriter(new FileOutputStream(new File("HighScore.txt"), true));
             String s = String.valueOf(getPontos());
-            writer.write(s);
+            writer.append("\n" + s);
             writer.close();
+
+            // FileWriter writer2 = new FileWriter("HighScore.txt");
+            // String s = String.valueOf(getPontos());
+            // writer2.write(s);
+            // writer2.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -147,7 +160,6 @@ public class Game {
 
                     break;
                 case GameOver:
-                    highScore();
                     setGameOver();
                     break;
 

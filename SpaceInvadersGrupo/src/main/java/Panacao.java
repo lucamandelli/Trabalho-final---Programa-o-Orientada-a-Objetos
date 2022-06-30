@@ -2,9 +2,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
- * Represents a Bomber that slides the screen from left to right
  * 
- * @author Luca Mandelli
+ * 
+ * @author Davi Barcellos de Lucca - 21200149
+ * @author Luca Partichelli Mandelli - 20103327
+ * @author Isabela Kuser Araujo - 21280763
+ * 
+ *         Link Projeto GitHub -
+ *         https://github.com/lucamandelli/Trabalho-POO.git
  */
 
 public class Panacao extends BasicElement {

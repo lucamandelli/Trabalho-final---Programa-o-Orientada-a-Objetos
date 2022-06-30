@@ -11,9 +11,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Handles window initialization and primary game setup
  * 
- * @author Bernardo Copstein, Rafael Copstein
+ * 
+ * @author Davi Barcellos de Lucca - 21200149
+ * @author Luca Partichelli Mandelli - 20103327
+ * @author Isabela Kuser Araujo - 21280763
+ * 
+ *         Link Projeto GitHub -
+ *         https://github.com/lucamandelli/Trabalho-POO.git
  */
 
 public class Main extends Application {

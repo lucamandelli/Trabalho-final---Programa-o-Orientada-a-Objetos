@@ -2,9 +2,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
 /**
- * Represents a shot that crosses the screen from up to bottom and then dismiss
  * 
- * @author Luca Mandelli
+ * 
+ * @author Davi Barcellos de Lucca - 21200149
+ * @author Luca Partichelli Mandelli - 20103327
+ * @author Isabela Kuser Araujo - 21280763
+ * 
+ *         Link Projeto GitHub -
+ *         https://github.com/lucamandelli/Trabalho-POO.git
  */
 public class ShotPanacao extends BasicElement {
 

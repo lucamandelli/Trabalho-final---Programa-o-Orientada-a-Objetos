@@ -2,6 +2,17 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
+/**
+ * 
+ * 
+ * @author Davi Barcellos de Lucca - 21200149
+ * @author Luca Partichelli Mandelli - 20103327
+ * @author Isabela Kuser Araujo - 21280763
+ * 
+ *         Link Projeto GitHub -
+ *         https://github.com/lucamandelli/Trabalho-POO.git
+ */
+
 public class Canhao3 extends Canhao {
   private int RELOAD_TIME = 100000000; // Time is in nanoseconds
   private int shot_timer = 0;
